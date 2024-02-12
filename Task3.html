@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navbar Example</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="index.html">Option 1</a>
+    <a href="Task2.html">Option 2</a>
+    <a href="Task3.html">Option 3</a>
+  </div>
+
+  
+  <table style="width: 100%; border-collapse: collapse;">
+  </table>
+
+  <!-- Task 3 table -->
+  <h2>Task 3 Table</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Product Name</th>
+        <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Color</th>
+        <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Size</th>
+        <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Weight</th>
+      </tr>
+    </thead>
+    <tbody id="productData">
+      <!-- Data fetched from Node.js server will be displayed here -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/data1');
+        const data = await response.json();
+
+        const productData = document.getElementById('productData');
+        data.forEach(row => {
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>${row.ProductName}</td>
+            <td>${row.Color}</td>
+            <td>${row.Size}</td>
+            <td>${row.Weight}</td>
+          `;
+          productData.appendChild(newRow);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchData);
+  </script>
+ 
+</body>
+</html>
